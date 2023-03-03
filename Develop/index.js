@@ -15,12 +15,72 @@ const questions = ["What is the title of your project?",
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    
+    inquirer
+    .prompt([
+      {
+        type: 'input',
+        message: questions[0],
+        name: 'title',
+      },
+    //   {
+    //     type: 'input',
+    //     message: questions[1],
+    //     name: 'description',
+    //   },
+    //   {
+    //     type: 'input',
+    //     message: questions[2],
+    //     name: 'install',
+    //   },
+    //   {
+    //       type: 'input',
+    //       message: questions[3],
+    //       name: 'usage',
+    //   },
+    //   {
+    //     type: 'input',
+    //     message: questions[4],
+    //     name: 'contribution',
+    // },
+    // {
+    //     type: 'input',
+    //     message: questions[5],
+    //     name: 'test',
+    // },
+    // {
+    //     type: 'list',
+    //     message: questions[6],
+    //     choices: [ "Choice A", "choice B" ],
+    //     name: 'license',
+    // },
+    // {
+    //     type: 'input',
+    //     message: questions[7],
+    //     name: 'username',
+    // },
+    // {
+    //     type: 'input',
+    //     message: questions[8],
+    //     name: 'email',
+    // },
+    ])
+    .then((data) =>{
+      console.log(data) 
+      const readmeDoc = `# ${data.title}
+      `
+      fs.writeFile('README.md',`${readmeDoc}`,(err) =>{
+          err ? console.error(err): console.log("success!")
+  
+      })
+      
+    });
   
 }
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    writeToFile();
+}
 
 // Function call to initialize app
 init();
