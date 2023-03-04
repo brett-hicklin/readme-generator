@@ -54,8 +54,8 @@ function writeToFile(fileName, data) {
     {
         type: 'list',
         message: questions[6],
-        choices: [ "MIT", "GPLv2", "Apache", "Other", "None" ],
-        default: "None",
+        choices: [ "MIT", "GPLv2", "Apache", "Other or None" ],
+      
         name: 'license',
         
     },
@@ -72,28 +72,8 @@ function writeToFile(fileName, data) {
     ])
     .then((data) =>{
      console.log(data) 
-      const readmeDoc = `# ${data.title}
+      const readmeDoc = generateMarkdown(data)
 
-## ${data.description}
-
-## Table of Contents
-
-## Installation
-${data.install}
-
-## Usage
-${data.usage}
-
-## License
-${data.license}
-
-## How to Contribute
-${data.contribution}
-
-## Tests
-${data.test}
-
-      `
       fs.writeFile('README.md',`${readmeDoc}`,(err) =>{
           err ? console.error(err): console.log("success!")
         
