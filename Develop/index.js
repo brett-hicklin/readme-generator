@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const fs = require('fs');
 const inquirer = require('inquirer')
+const generateMarkdown = require('./utils/generateMarkdown')
 // TODO: Create an array of questions for user input
 const questions = ["What is the title of your project?",
 "Provide a short description of your project",
@@ -22,59 +23,84 @@ function writeToFile(fileName, data) {
         message: questions[0],
         name: 'title',
       },
-    //   {
-    //     type: 'input',
-    //     message: questions[1],
-    //     name: 'description',
-    //   },
-    //   {
-    //     type: 'input',
-    //     message: questions[2],
-    //     name: 'install',
-    //   },
-    //   {
-    //       type: 'input',
-    //       message: questions[3],
-    //       name: 'usage',
-    //   },
-    //   {
-    //     type: 'input',
-    //     message: questions[4],
-    //     name: 'contribution',
-    // },
-    // {
-    //     type: 'input',
-    //     message: questions[5],
-    //     name: 'test',
-    // },
-    // {
-    //     type: 'list',
-    //     message: questions[6],
-    //     choices: [ "Choice A", "choice B" ],
-    //     name: 'license',
-    // },
-    // {
-    //     type: 'input',
-    //     message: questions[7],
-    //     name: 'username',
-    // },
-    // {
-    //     type: 'input',
-    //     message: questions[8],
-    //     name: 'email',
-    // },
+      {
+        type: 'input',
+        message: questions[1],
+        name: 'description',
+      },
+      {
+        type: 'input',
+        message: questions[2],
+        name: 'install',
+        default:'N/A',
+      },
+      {
+        type: 'input',
+        message: questions[3],
+        name: 'usage',
+      },
+      {
+        type: 'input',
+        message: questions[4],
+        default:'N/A',
+        name: 'contribution',
+    },
+    {
+        type: 'input',
+        message: questions[5],
+        default:'N/A',
+        name: 'test',
+    },
+    {
+        type: 'list',
+        message: questions[6],
+        choices: [ "MIT", "GPLv2", "Apache", "Other", "None" ],
+        default: "None",
+        name: 'license',
+        
+    },
+    {
+        type: 'input',
+        message: questions[7],
+        name: 'username',
+    },
+    {
+        type: 'input',
+        message: questions[8],
+        name: 'email',
+    },
     ])
     .then((data) =>{
-      console.log(data) 
+     console.log(data) 
       const readmeDoc = `# ${data.title}
+
+## ${data.description}
+
+## Table of Contents
+
+## Installation
+${data.install}
+
+## Usage
+${data.usage}
+
+## License
+${data.license}
+
+## How to Contribute
+${data.contribution}
+
+## Tests
+${data.test}
+
       `
       fs.writeFile('README.md',`${readmeDoc}`,(err) =>{
           err ? console.error(err): console.log("success!")
-  
+        
       })
       
     });
-  
+  // export license
 }
 
 // TODO: Create a function to initialize app
