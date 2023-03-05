@@ -70,7 +70,6 @@ function writeToFile(fileName, data) {
     },
     ])
     .then((data) =>{
-     console.log(data) 
       const readmeDoc = generateMarkdown.generateMarkdown(data)
 
       fs.writeFile('README.md',`${readmeDoc}`,(err) =>{
@@ -79,7 +78,7 @@ function writeToFile(fileName, data) {
       })
       
     });
-  // export license
+  
 }
 
 // TODO: Create a function to initialize app
