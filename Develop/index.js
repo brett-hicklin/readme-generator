@@ -23,6 +23,7 @@ const questions = [
     {
       type: "input",
       message:"Provide usage instructions",
+      default: "N/A",
       name: "usage",
     },
     {
@@ -55,22 +56,28 @@ const questions = [
     },
 ];
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-  inquirer
+function userPrompts(){
+    inquirer
     .prompt(questions)
     .then((data) => {
+        writeToFile("README.md",data)
+    }
+)};
+
+// TODO: Create a function to write README file
+function writeToFile(fileName, data) {
+   
       const readmeDoc = generateMarkdown.generateMarkdown(data);
 
-      fs.writeFile("README.md", `${readmeDoc}`, (err) => {
-        err ? console.error(err) : console.log("success!");
+      fs.writeFile(fileName, `${readmeDoc}`, (err) => {
+        err ? console.error(err) : console.log("You've successfully created a README file!");
       });
-    });
+    
 }
 
 // TODO: Create a function to initialize app
 function init() {
-  writeToFile();
+  userPrompts();
 }
 
 // Function call to initialize app
