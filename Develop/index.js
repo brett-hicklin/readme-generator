@@ -4,71 +4,61 @@ const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
 // TODO: Create an array of questions for user input
 const questions = [
-  "What is the title of your project?",
-  "Provide a short description of your project",
-  "What are the steps required to install your project?",
-  "Provide usage instructions",
-  "Provide contribution guidelines, if any",
-  "Provide test instructions, if any",
-  "What licensing are you using?",
-  "What is your GitHub username?",
-  "What is your email address?",
+    {
+      type: "input",
+      message:"What is the title of your project?",
+      name: "title",
+    },
+    {
+      type: "input",
+      message:"Provide a short description of your project",
+      name: "description",
+    },
+    {
+      type: "input",
+      message: "What are the steps required to install your project?",
+      name: "install",
+      default: "N/A",
+    },
+    {
+      type: "input",
+      message:"Provide usage instructions",
+      name: "usage",
+    },
+    {
+      type: "input",
+      message: "Provide contribution guidelines, if any",
+      default: "N/A",
+      name: "contribution",
+    },
+    {
+      type: "input",
+      message:"Provide test instructions, if any",
+      default: "N/A",
+      name: "test",
+    },
+    {
+      type: "list",
+      message:"What licensing are you using?",
+      choices: ["MIT", "GPLv2", "Apache", "Other or None"],
+      name: "license",
+    },
+    {
+      type: "input",
+      message:"What is your GitHub username?",
+      name: "username",
+    },
+    {
+      type: "input",
+      message:"What is your email address?",
+      name: "email",
+    },
 ];
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
   inquirer
-    .prompt([
-      {
-        type: "input",
-        message: questions[0],
-        name: "title",
-      },
-      {
-        type: "input",
-        message: questions[1],
-        name: "description",
-      },
-      {
-        type: "input",
-        message: questions[2],
-        name: "install",
-        default: "N/A",
-      },
-      {
-        type: "input",
-        message: questions[3],
-        name: "usage",
-      },
-      {
-        type: "input",
-        message: questions[4],
-        default: "N/A",
-        name: "contribution",
-      },
-      {
-        type: "input",
-        message: questions[5],
-        default: "N/A",
-        name: "test",
-      },
-      {
-        type: "list",
-        message: questions[6],
-        choices: ["MIT", "GPLv2", "Apache", "Other or None"],
-        name: "license",
-      },
-      {
-        type: "input",
-        message: questions[7],
-        name: "username",
-      },
-      {
-        type: "input",
-        message: questions[8],
-        name: "email",
-      },
-    ])
+    .prompt(questions)
     .then((data) => {
       const readmeDoc = generateMarkdown.generateMarkdown(data);
 
